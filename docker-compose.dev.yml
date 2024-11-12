@@ -1,12 +1,12 @@
 services:
-  scenario:
+  scenarioService:
     build:
       context: .
       dockerfile: Dockerfile.dev
     volumes:
-      - ./src:/scenario/src           # Mount the local src directory
-      - ./target:/scenario/target       # Mount the local target directory
-      - ./mvnw:/scenario/mvnw           # Mount the mvnw script
-      - ./pom.xml:/scenario/pom.xml     # Mount the pom.xml if needed
+      - ./src:/scenarioService/src           # Mount the local src directory
+      - ./target:/scenarioService/target       # Mount the local target directory
+      - ./mvnw:/scenarioService/mvnw           # Mount the mvnw script
+      - ./pom.xml:/scenarioService/pom.xml     # Mount the pom.xml if needed
     ports:
       - "8093:8093"                     # Map port 8091 to the host

@@ -1,6 +1,6 @@
 FROM openjdk:17-jdk-slim
 
-WORKDIR /scenario
+WORKDIR /scenarioService
 
 # Copy Maven Wrapper and pom.xml
 COPY mvnw pom.xml ./
@@ -13,8 +13,8 @@ COPY src ./src
 RUN chmod +x mvnw
 
 # Copy the entrypoint script
-COPY entrypoint.sh /scenario/entrypoint.sh
-RUN chmod +x /scenario/entrypoint.sh
+COPY entrypoint.sh /scenarioService/entrypoint.sh
+RUN chmod +x /scenarioService/entrypoint.sh
 
 # Set the entrypoint
 ENTRYPOINT ["./entrypoint.sh"]
