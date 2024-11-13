@@ -21,7 +21,7 @@ public class ScenarioServiceImpl implements ScenarioService {
     @Override
     public Scenario getScenario(Long id) {
         return scenarios.stream()
-                .filter(lobby -> lobby.getId().equals(id))
+                .filter(scenario -> scenario.getId().equals(id))
                 .findFirst()
                 .orElse(null);
     }
@@ -34,6 +34,7 @@ public class ScenarioServiceImpl implements ScenarioService {
 
     @Override
     public List<Scenario> getAllScenarios() {
+        // todo get form scenario
         return scenarios;
     }
 }
