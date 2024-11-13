@@ -14,17 +14,20 @@ import java.util.List;
 public class ScenarioController {
 
     private final ScenarioService scenarioService;
-    private final RabbitMQSenderService senderService;
 
     @Autowired
     public ScenarioController(ScenarioService scenarioService, @Nullable RabbitMQSenderService senderService) {
         this.scenarioService = scenarioService;
-        this.senderService = senderService;
     }
 
     @PostMapping
-    public Scenario createScenario(@RequestParam String name) {
-        return scenarioService.createScenario(name);
+    public Scenario createScenario(@RequestBody Scenario scenario) {
+        return scenarioService.createScenario(scenario);
+    }
+
+    @DeleteMapping
+    public boolean deleteScenario(@RequestParam long id) {
+        return scenarioService.deleteScenario(id);
     }
 
     @GetMapping("/{id}")
