@@ -1,9 +1,14 @@
 package com.babymonitor.scenario.model;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bson.Document;
+import org.springframework.data.annotation.Id;
 
 public class Scenario {
+    @Id
+    @JsonProperty("_id")
+    private String _id;
     private String name;
     private String description;
     private Matlab matlab;
@@ -11,7 +16,15 @@ public class Scenario {
     public Scenario() {
     }
     public Scenario(String name, String description, Matlab matlab) {
-
+        this.name = name;
+        this.description = description;
+        this.matlab = matlab;
+    }
+    public Scenario(String _id, String name, String description, Matlab matlab) {
+        this._id = _id;
+        this.name = name;
+        this.description = description;
+        this.matlab = matlab;
     }
 
     public String getName() {
@@ -36,20 +49,5 @@ public class Scenario {
 
     public void setMatlab(Matlab matlab) {
         this.matlab = matlab;
-    }
-
-    public Document toDocument() {
-        return new Document()
-                .append("name", name)
-                .append("description", description)
-                .append("matlab", matlab != null ? matlab.toDocument() : null);
-    }
-
-    public static Scenario fromDocument(Document doc) {
-        return new Scenario(
-                doc.getString("name"),
-                doc.getString("description"),
-                doc.get("matlab") != null ? Matlab.fromDocument(doc.get("matlab", Document.class)) : null
-        );
     }
 }
