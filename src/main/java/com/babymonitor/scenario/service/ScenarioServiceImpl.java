@@ -1,6 +1,8 @@
 package com.babymonitor.scenario.service;
 
 import com.babymonitor.scenario.model.Scenario;
+import com.babymonitor.scenario.repository.ScenarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,33 +11,37 @@ import java.util.List;
 @Service
 public class ScenarioServiceImpl implements ScenarioService {
 
-    private final List<Scenario> scenarios = new ArrayList<>();
+    private final ScenarioRepository scenarioRepository;
+
+    @Autowired
+    public ScenarioServiceImpl(ScenarioRepository scenarioRepository) {
+        this.scenarioRepository = scenarioRepository;
+    }
 
     @Override
     public Scenario createScenario(Scenario scenario) {
-        // todo add to data base
-        scenarios.add(scenario);
-        return scenario;
+        return scenarioRepository.save(scenario);
     }
 
     @Override
-    public Scenario getScenario(Long id) {
-        return scenarios.stream()
-                .filter(scenario -> scenario.getId().equals(id))
-                .findFirst()
-                .orElse(null);
+    public Scenario getScenario(String id) {
+        return scenarioRepository.findById(id).orElse(null);
     }
 
     @Override
-    public boolean deleteScenario(Long id) {
-        // todo deleted from database
-        return scenarios.removeIf(lobby -> lobby.getId().equals(id));
+    public boolean deleteScenario(String id) {
+        try {
+            scenarioRepository.deleteById(id);
+            return true;
+        }
+        catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
     public List<Scenario> getAllScenarios() {
-        // todo get form scenario
-        return scenarios;
+        return scenarioRepository.findAll();
     }
 }
 

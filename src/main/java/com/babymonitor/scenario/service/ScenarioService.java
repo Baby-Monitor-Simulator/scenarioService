@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface ScenarioService {
     Scenario createScenario(Scenario scenario);
-    Scenario getScenario(Long id);
-    boolean deleteScenario(Long id);
+    Scenario getScenario(String id);
+    boolean deleteScenario(String id);
     List<Scenario> getAllScenarios();
 }
 

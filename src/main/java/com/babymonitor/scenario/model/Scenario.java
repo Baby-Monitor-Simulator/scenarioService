@@ -1,27 +1,17 @@
 package com.babymonitor.scenario.model;
 
-import java.util.ArrayList;
-import java.util.List;
+
+import org.bson.Document;
 
 public class Scenario {
-    private Long id;
     private String name;
     private String description;
     private Matlab matlab;
 
     public Scenario() {
     }
-    public Scenario(Long id, String name, String description, Matlab matlab) {
+    public Scenario(String name, String description, Matlab matlab) {
 
-    }
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -46,5 +36,20 @@ public class Scenario {
 
     public void setMatlab(Matlab matlab) {
         this.matlab = matlab;
+    }
+
+    public Document toDocument() {
+        return new Document()
+                .append("name", name)
+                .append("description", description)
+                .append("matlab", matlab != null ? matlab.toDocument() : null);
+    }
+
+    public static Scenario fromDocument(Document doc) {
+        return new Scenario(
+                doc.getString("name"),
+                doc.getString("description"),
+                doc.get("matlab") != null ? Matlab.fromDocument(doc.get("matlab", Document.class)) : null
+        );
     }
 }

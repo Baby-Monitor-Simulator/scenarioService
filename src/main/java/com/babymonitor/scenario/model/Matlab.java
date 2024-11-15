@@ -1,5 +1,7 @@
 package com.babymonitor.scenario.model;
 
+import org.bson.Document;
+
 public class Matlab {
     private int oxygenSaturation;
     private int bloodPresure;
@@ -36,5 +38,20 @@ public class Matlab {
 
     public void setHartRate(int hartRate) {
         this.hartRate = hartRate;
+    }
+
+    public Document toDocument() {
+        return new Document()
+                .append("oxygenSaturation", oxygenSaturation)
+                .append("bloodPresure", bloodPresure)
+                .append("hartRate", hartRate);
+    }
+
+    public static Matlab fromDocument(Document doc) {
+        return new Matlab(
+                doc.getInteger("oxygenSaturation"),
+                doc.getInteger("bloodPresure"),
+                doc.getInteger("hartRate")
+        );
     }
 }

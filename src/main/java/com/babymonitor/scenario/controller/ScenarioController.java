@@ -25,17 +25,17 @@ public class ScenarioController {
         return scenarioService.createScenario(scenario);
     }
 
-    @DeleteMapping
-    public boolean deleteScenario(@RequestParam long id) {
+    @DeleteMapping("/{id}")
+    public boolean deleteScenario(@PathVariable String id) {
         return scenarioService.deleteScenario(id);
     }
 
     @GetMapping("/{id}")
-    public Scenario getScenario(@PathVariable Long id) {
+    public Scenario getScenario(@PathVariable String id) {
         return scenarioService.getScenario(id);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public List<Scenario> getAllScenarios() {
         return scenarioService.getAllScenarios();
     }
