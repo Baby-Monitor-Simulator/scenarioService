@@ -4,16 +4,16 @@ import org.bson.Document;
 
 public class Matlab {
     private int oxygenSaturation;
-    private int bloodPresure;
-    private int hartRate;
+    private int bloodPressure;
+    private int heartRate;
 
     public Matlab() {
     }
 
-    public Matlab(int oxygenSaturation, int bloodPresure, int hartRate) {
+    public Matlab(int oxygenSaturation, int bloodPressure, int heartRate) {
         this.oxygenSaturation = oxygenSaturation;
-        this.bloodPresure = bloodPresure;
-        this.hartRate = hartRate;
+        this.bloodPressure = bloodPressure;
+        this.heartRate = heartRate;
     }
 
     public int getOxygenSaturation() {
@@ -24,27 +24,27 @@ public class Matlab {
         this.oxygenSaturation = oxygenSaturation;
     }
 
-    public int getBloodPresure() {
-        return bloodPresure;
+    public int getBloodPressure() {
+        return bloodPressure;
     }
 
-    public void setBloodPresure(int bloodPresure) {
-        this.bloodPresure = bloodPresure;
+    public void setBloodPressure(int bloodPressure) {
+        this.bloodPressure = bloodPressure;
     }
 
-    public int getHartRate() {
-        return hartRate;
+    public int getHeartRate() {
+        return heartRate;
     }
 
-    public void setHartRate(int hartRate) {
-        this.hartRate = hartRate;
+    public void setHeartRate(int heartRate) {
+        this.heartRate = heartRate;
     }
 
     public Document toDocument() {
         return new Document()
                 .append("oxygenSaturation", oxygenSaturation)
-                .append("bloodPresure", bloodPresure)
-                .append("hartRate", hartRate);
+                .append("bloodPresure", bloodPressure)
+                .append("hartRate", heartRate);
     }
 
     public static Matlab fromDocument(Document doc) {
