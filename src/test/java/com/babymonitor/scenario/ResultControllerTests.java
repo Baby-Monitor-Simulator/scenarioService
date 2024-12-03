@@ -6,6 +6,7 @@ import com.babymonitor.scenario.model.Scenario;
 import com.babymonitor.scenario.service.ScenarioServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -17,6 +18,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -91,6 +93,8 @@ class ScenarioControllerTest {
     void whenAddNewResult_thenReturnSuccess() throws Exception {
         Scenario scenario = new Scenario("testScenario", "testDescription", new Matlab(2,5,7));
 
+        when(scenarioService.createScenario(any())).thenReturn(scenario);
+
         mockMvc.perform(post("/api/scenario")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(scenario)))
@@ -126,12 +130,14 @@ class ScenarioControllerTest {
     void whenAddResultWithNullFields_thenReturnSuccess() throws Exception {
         Scenario scenario = new Scenario("", "", null);
 
+        when(scenarioService.createScenario(any())).thenReturn(scenario);
+
         mockMvc.perform(post("/api/scenario")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(scenario)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is("")))
                 .andExpect(jsonPath("$.description", is("")))
-                .andExpect(jsonPath("$.matlab", is(null)));
+                .andExpect(jsonPath("$.matlab").doesNotExist());
     }
 }
