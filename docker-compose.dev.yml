@@ -1,5 +1,5 @@
 services:
-  scenarioService:
+  scenario:
     build:
       context: .
       dockerfile: Dockerfile.dev
@@ -10,3 +10,7 @@ services:
       - ./pom.xml:/scenarioService/pom.xml     # Mount the pom.xml if needed
     ports:
       - "8093:8093"                     # Map port 8091 to the host
+    env_file:
+      - .env.properties
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
