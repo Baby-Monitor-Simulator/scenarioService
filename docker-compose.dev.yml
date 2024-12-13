@@ -9,7 +9,7 @@ services:
       - ./mvnw:/scenarioService/mvnw           # Mount the mvnw script
       - ./pom.xml:/scenarioService/pom.xml     # Mount the pom.xml if needed
     ports:
-      - "8093:8093"                     # Map port 8091 to the host
+      - "8084:8084"                     # Map port 8091 to the host
     env_file:
       - .env.properties
     environment:
