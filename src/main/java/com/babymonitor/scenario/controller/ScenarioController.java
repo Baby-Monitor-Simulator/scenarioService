@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/scenario")
+@CrossOrigin
 public class ScenarioController {
 
     private final ScenarioService scenarioService;
