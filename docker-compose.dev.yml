@@ -1,16 +1,19 @@
 services:
   scenario:
+    container_name: scenarioService-test
     build:
-      context: .
+      context: ./
       dockerfile: Dockerfile.dev
     volumes:
-      - ./src:/scenarioService/src           # Mount the local src directory
-      - ./target:/scenarioService/target       # Mount the local target directory
-      - ./mvnw:/scenarioService/mvnw           # Mount the mvnw script
-      - ./pom.xml:/scenarioService/pom.xml     # Mount the pom.xml if needed
+      - ./src:/scenarioService/src
+      - ./target:/scenarioService/target
+      - ./mvnw:/scenarioService/mvnw
+      - ./pom.xml:/scenarioService/pom.xml
     ports:
-      - "8084:8084"                     # Map port 8091 to the host
+      - "8084:8084"
     env_file:
-      - .env.properties
+      - .env
     environment:
       SPRING_PROFILES_ACTIVE: dev
+    networks: 
+      - babymonitor
