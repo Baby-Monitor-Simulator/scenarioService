@@ -43,7 +43,7 @@ class ScenarioControllerTest {
 
         when(scenarioService.getAllScenarios()).thenReturn(allScenarios);
 
-        mockMvc.perform(get("/api/scenario/all")
+        mockMvc.perform(get("/scenario/all")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
@@ -67,7 +67,7 @@ class ScenarioControllerTest {
 
         when(scenarioService.getScenario("gddg67")).thenReturn(scenario);
 
-        mockMvc.perform(get("/api/scenario/gddg67")
+        mockMvc.perform(get("/scenario/gddg67")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$._id", is("gddg67")))
@@ -82,7 +82,7 @@ class ScenarioControllerTest {
     void whenGetNonExistingResult_thenReturn404() throws Exception {
         when(scenarioService.getScenario("test")).thenReturn(null);
 
-        mockMvc.perform(get("/api/scenario/test")
+        mockMvc.perform(get("/scenario/test")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").doesNotExist());
@@ -94,7 +94,7 @@ class ScenarioControllerTest {
 
         when(scenarioService.createScenario(any())).thenReturn(scenario);
 
-        mockMvc.perform(post("/api/scenario")
+        mockMvc.perform(post("/scenario")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(scenario)))
                 .andExpect(status().isOk())
@@ -109,7 +109,7 @@ class ScenarioControllerTest {
     void whenAddNewResultWithInvalidJson_thenReturn400() throws Exception {
         String invalidJson = "{ invalid json }";
 
-        mockMvc.perform(post("/api/scenario")
+        mockMvc.perform(post("/scenario")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(invalidJson))
                 .andExpect(status().isBadRequest());
@@ -119,7 +119,7 @@ class ScenarioControllerTest {
     void whenGetResultsForUserWithNoResults_thenReturnEmptyArray() throws Exception {
         when(scenarioService.getAllScenarios()).thenReturn(List.of());
 
-        mockMvc.perform(get("/api/scenario/all")
+        mockMvc.perform(get("/scenario/all")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(0)));
@@ -131,7 +131,7 @@ class ScenarioControllerTest {
 
         when(scenarioService.createScenario(any())).thenReturn(scenario);
 
-        mockMvc.perform(post("/api/scenario")
+        mockMvc.perform(post("/scenario")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(scenario)))
                 .andExpect(status().isOk())
